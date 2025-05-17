@@ -1,4 +1,5 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ProductImage } from "./product-image.entity";
 
 @Entity()
 export class Product {
@@ -44,6 +45,13 @@ export class Product {
     default: [],
   })
   tags: string[];
+
+  @OneToMany(
+    () => ProductImage,
+    (productImage) => productImage.product,
+    { cascade: true, eager: true }
+  )
+  images?: ProductImage[];
   
   @BeforeInsert()
   checkSlugInsert() {
@@ -59,5 +67,9 @@ export class Product {
   }
 
 
+}
+
+function oneToMany(arg0: () => typeof ProductImage, arg1: (productImage: any) => any, arg2: { cascade: boolean; eager: boolean; }): (target: Product, propertyKey: "images") => void {
+  throw new Error("Function not implemented.");
 }
 
