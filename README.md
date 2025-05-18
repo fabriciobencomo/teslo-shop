@@ -12,6 +12,10 @@
 ```
 docker-compose up -d
 ```
+6. Execuete Seed
+```
+http://localhost:3000/api/seed
+```
 
-6. Up: ``` `yarn start:dev``
+7. Up: ``` `yarn start:dev``
 
