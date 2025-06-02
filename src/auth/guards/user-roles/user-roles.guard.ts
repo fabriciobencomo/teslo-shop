@@ -1,6 +1,7 @@
 import { BadRequestException, CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
+import { META_ROLES } from 'src/auth/decorators/role-protected.decorator';
 
 @Injectable()
 export class UserRolesGuard implements CanActivate {
@@ -12,7 +13,7 @@ export class UserRolesGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const validRoles = this.reflector.get('roles', context.getHandler());
+    const validRoles = this.reflector.get(META_ROLES, context.getHandler());
 
     const req = context.switchToHttp().getRequest();
     const user = req.user;
