@@ -32,7 +32,7 @@ export class AuthService {
 
       return {
         ...user,
-        token: this.getJwtToken({ email: user.email }),
+        token: this.getJwtToken({ id: user.id }),
       };
 
     }catch (error) { 
@@ -46,7 +46,7 @@ export class AuthService {
 
       const user = await this.userRepository.findOne({ 
         where: { email },
-        select: ['email', 'password'],
+        select: ['email', 'password', 'id'],
        });
       if(!user) {
         throw new InternalServerErrorException('User not found');
@@ -58,10 +58,9 @@ export class AuthService {
     
       return {
         ...user,
-        token: this.getJwtToken({ email: user.email }),
+        token: this.getJwtToken({ id: user.id }),
       };
 
-      //TODO: Generate JWT token here
 
     } catch (error) {
       this.handleDbError(error);
