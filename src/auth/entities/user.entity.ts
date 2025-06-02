@@ -1,10 +1,9 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name: "users" })
+@Entity("users")
 export class User {
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-
  
   @Column('text', {
       unique: true,
@@ -18,7 +17,7 @@ export class User {
   fullName: string;
 
   @Column('bool', {
-    unique: true,
+    default: true,
   })
   isActive: boolean;
 
@@ -27,8 +26,5 @@ export class User {
     default: ['user'],
   })
   roles: string[];
-
-  createdAt: Date;
-  updatedAt: Date;
 
 }
