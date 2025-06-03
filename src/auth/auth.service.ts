@@ -68,6 +68,19 @@ export class AuthService {
 
   }
 
+  checkAuthStatus(user: User) {
+    if(!user) {
+      throw new InternalServerErrorException('User not found');
+    }
+  const payload: JwtPayload = { id: user.id };
+  const token = this.getJwtToken(payload);
+  return {
+      ...user,
+      token,
+    };
+  }
+    
+
   private getJwtToken(payload: JwtPayload){
     const token = this.jwtService.sign(payload);
     return token

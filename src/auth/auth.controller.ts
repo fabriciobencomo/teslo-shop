@@ -24,6 +24,20 @@ export class AuthController {
     return this.authService.login(loginUserDto);
   }
 
+
+  @Get('check-status')
+  @Auth(ValidRoles.user, ValidRoles.admin, ValidRoles.superUser)
+  checkAuthStatus(
+    @GetUser() user: User, // This will automatically inject the user if authenticated
+  ){
+    return this.authService.checkAuthStatus(user);
+    return {
+      ok: true,
+      message: 'You are authenticated',
+    };
+  }
+
+
   @Get('private')
   @UseGuards(AuthGuard())
   testingPrivateRoute(
